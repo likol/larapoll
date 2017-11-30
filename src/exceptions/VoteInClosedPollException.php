@@ -11,6 +11,6 @@ class VoteInClosedPollException extends Exception
      */
     public function __construct()
     {
-        parent::__construct('Poll is closed, You can not vote anymore');
+        parent::__construct('投票已關閉，你無法再進行投票。');
     }
 }

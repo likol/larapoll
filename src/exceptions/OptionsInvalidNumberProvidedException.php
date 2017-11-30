@@ -11,6 +11,6 @@ class OptionsInvalidNumberProvidedException extends Exception
      */
     public function __construct()
     {
-        parent::__construct('You can not create poll with one option');
+        parent::__construct('你不能建立只有一個選項的投票。');
     }
 }

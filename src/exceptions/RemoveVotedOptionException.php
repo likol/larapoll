@@ -11,6 +11,6 @@ class RemoveVotedOptionException extends Exception
      */
     public function __construct()
     {
-        parent::__construct('You can not remove an option that has got some votes');
+        parent::__construct('你無法移除已被投過票的選項。');
     }
 }
