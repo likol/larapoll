@@ -19,11 +19,18 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="{{ route('poll.home') }}">Home</a></li>
-            <li><a href="{{ route('poll.index') }}">Polls</a></li>
-            <li class="active">Add new Options</li>
+            <li><a href="{{ route('manage.dashboard') }}">後台首頁</a></li>
+            <li><a href="{{ route('poll.index') }}">投票</a></li>
+            <li class="active">新增選項</li>
         </ol>
         <div class="well col-md-8 col-md-offset-2">
+            @if($errors->any())
+                <ul class="alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <form method="POST" action=" {{ route('poll.options.add', $poll->id) }}">
                 {{ csrf_field() }}
                 <!-- Question Input -->
@@ -37,7 +44,7 @@
                 </ul>
                 <ul id="options">
                     <li>
-                        <input type="text" name="options[0]" class="form-control add-input" placeholder="Insert your option" />
+                        <input type="text" name="options[0]" class="form-control add-input" placeholder="插入新的選項" />
                             <a class="btn btn-danger" href="#" onclick='remove(this)'>
                                 <i class="fa fa-minus-circle" aria-hidden="true"></i>
                             </a>
@@ -55,7 +62,7 @@
                 </ul>
                 <!-- Create Form Submit -->
                 <div class="form-group">
-                    <input name="Add" type="submit" value="Add" class="btn btn-primary form-control" >
+                    <input name="Add" type="submit" value="新增" class="btn btn-primary form-control" >
                 </div>
             </form>
         </div>

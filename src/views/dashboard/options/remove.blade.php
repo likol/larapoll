@@ -5,9 +5,9 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="{{ route('poll.home') }}">Home</a></li>
-            <li><a href="{{ route('poll.index') }}">Polls</a></li>
-            <li class="active">Remove Options</li>
+            <li><a href="{{ route('manage.dashboard') }}">後台首頁</a></li>
+            <li><a href="{{ route('poll.index') }}">投票</a></li>
+            <li class="active">移除選項</li>
         </ol>
         <div class="well col-md-8 col-md-offset-2">
             @if($errors->any())
@@ -34,7 +34,7 @@
                 </div>
                 <!-- Create Form Submit -->
                 <div class="form-group">
-                    <input name="Delete" type="submit" value="Delete" class="btn btn-danger form-control" >
+                    <input name="Delete" type="submit" value="移除" class="btn btn-danger form-control" >
                 </div>
             </form>
         </div>

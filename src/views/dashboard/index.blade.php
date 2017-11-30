@@ -1,6 +1,6 @@
 @extends('larapoll::layouts.app')
 @section('title')
-    Polls- Listing
+    投票管理： 列表
 @endsection
 @section('style')
     <style>
@@ -12,8 +12,8 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="{{ route('poll.home') }}">Home</a></li>
-            <li class="active">Polls</li>
+            <li><a href="{{ route('manage.dashboard') }}">後台首頁</a></li>
+            <li class="active">投票</li>
         </ol>
         @if(Session::has('success'))
             <div class="alert alert-success">
@@ -26,15 +26,15 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Question</th>
-                    <th>Options</th>
-                    <th>Votes</th>
-                    <th>State</th>
-                    <th>Edit</th>
-                    <th>Add Options</th>
-                    <th>Remove Options</th>
-                    <th>Remove</th>
-                    <th>Lock/Unlock</th>
+                    <th>投票主題</th>
+                    <th>選項數</th>
+                    <th>投票數</th>
+                    <th>狀態</th>
+                    <th>編輯</th>
+                    <th>新增選項</th>
+                    <th>移除選項</th>
+                    <th>移除投票</th>
+                    <th>關閉/開放投票</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,9 +46,9 @@
                         <td>{{ $poll->votes_count }}</td>
                         <td>
                             @if($poll->isLocked())
-                                <span class="label label-danger">Closed</span>
+                                <span class="label label-danger">關閉</span>
                             @else
-                                <span class="label label-success">Open</span>
+                                <span class="label label-success">開放</span>
                             @endif
                         </td>
                         <td>
