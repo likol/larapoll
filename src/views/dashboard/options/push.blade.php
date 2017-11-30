@@ -24,13 +24,6 @@
             <li class="active">Add new Options</li>
         </ol>
         <div class="well col-md-8 col-md-offset-2">
-            @if($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
             <form method="POST" action=" {{ route('poll.options.add', $poll->id) }}">
                 {{ csrf_field() }}
                 <!-- Question Input -->

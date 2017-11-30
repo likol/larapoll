@@ -47,7 +47,7 @@
                 LaraPoll
             </a>
         </div>
-        <a href="{{ route('poll.create') }}" class="btn btn-success pull-right create-btn">Create new Poll</a>
+        <a href="{{ route('poll.create') }}" class="btn btn-success pull-right create-btn">建立投票</a>
     </div>
 </nav>
 
