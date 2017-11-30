@@ -14,10 +14,14 @@ trait PollWriterResults
         $total = $poll->votes->count();
         $results = $poll->results()->grab();
 
+        $this->drawBoxStart();
         $this->drawResultHeader($poll->question);
+        $this->drawControlsStart();
         foreach($results as $result){
             $this->drawResultOption($result, $total);
         }
+        $this->drawControlsEnd();
+        $this->drawBoxEnd();
     }
 
 
@@ -28,7 +32,30 @@ trait PollWriterResults
      */
     public function drawResultHeader($question)
     {
-        echo "<h5>Poll: {$question}</h5>";
+        echo "<h5>投票結果: {$question}</h5>";
+    }
+
+    public function drawControlsStart()
+    {
+        echo "<div class='controls-stacked'>";
+    }
+
+    public function drawControlsEnd()
+    {
+        echo "</div>";
+    }
+
+    public function drawBoxStart()
+    {
+        echo '
+        <div class="row">
+        <div class="col-md-6">
+        <div class="featured-item career-box">';
+    }
+
+    public function drawBoxEnd()
+    {
+        echo '</div></div></div>';
     }
 
     /**
@@ -45,13 +72,10 @@ trait PollWriterResults
         }else{
             $percent = ($votes * 100) /($total);
         }
-        echo "<div class='result-option-id'>
+        echo "
                 <strong>{$result['option']->name}</strong><span class='pull-right'>{$percent}%</span>
-                <div class='progress'>
-                    <div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='{$percent}' aria-valuemin='0' aria-valuemax='100' style='width: {$percent}%'>
-                        <span class='sr-only'>{$percent}% Complete</span>
-                    </div>
-                </div>
-            </div>";
+                <progress class='progress' value='{$percent}' max='100'>
+                    {$percent}%
+                </progress>";
     }
 }

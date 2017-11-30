@@ -16,12 +16,14 @@ trait PollWriterVoting
         $options = $poll->options->pluck('name', 'id');
         $this->startForm($poll->id);
         $this->drawStartHeaderPanel();
-        $this->drawHeader($poll->question);
+        $this->drawHeader($poll->question, $poll->description);
         $this->drawEndHeaderPanel();
 
+        $this->drawStartOptionsPanel();
         foreach($options as $id => $name){
             $this->drawOptionCheckbox($id, $name);
         }
+        $this->drawEndOptionsPanel();
         $this->endForm();
     }
 
@@ -34,10 +36,13 @@ trait PollWriterVoting
     public function drawOptionCheckbox($id, $name)
     {
         echo "
-            <label>
-				<input type='checkbox' name='options[]' value={$id}> {$name}
+            <li class=\"list-group-item\">
+            <label class=\"control checkbox\">
+				<input type='checkbox' name='options[]' value={$id} />
+				<span class=\"control-indicator\"></span>
+				{$name}
 			</label>
-			<br/>
+			</li>
         ";
     }
 
@@ -51,7 +56,7 @@ trait PollWriterVoting
         $options = $poll->options->pluck('name', 'id');
         $this->startForm($poll->id);
         $this->drawStartHeaderPanel();
-        $this->drawHeader($poll->question);
+        $this->drawHeader($poll->question, $poll->description);
         $this->drawEndHeaderPanel();
 
         $this->drawStartOptionsPanel();
@@ -86,7 +91,11 @@ trait PollWriterVoting
      */
     public function startForm($id)
     {
-        echo '<form method="POST" action="'. route('poll.vote', $id).'" >';
+        echo '
+        <div class="row">
+        <div class="col-md-6">
+        <form method="POST" action="'. route('poll.vote', $id).'" >
+        ';
     }
 
     /**
@@ -94,10 +103,7 @@ trait PollWriterVoting
      */
     public function endForm()
     {
-        echo '<div class="panel-footer">
-                    <input type="submit" class="btn btn-primary btn-sm" value="Vote" />
-                </div>
-        </form>';
+        echo '<div class="col-md-12 text-center"><input type="submit" class="btn btn-small btn-dark-solid" value="投票" /></div></form></div></div></div>';
     }
 
     /**
@@ -105,15 +111,18 @@ trait PollWriterVoting
      */
     public function drawStartHeaderPanel()
     {
-        echo '<div class="panel panel-primary">';
+        echo '
+            <div class="featured-item career-box">
+                <div class="icon text-center"><i class="icon-basic_pin1"></i></div>
+                <div class="heading-title-alt border-short-bottom text-center" style="margin-bottom: 15px">
+            ';
     }
 
-    /**
-     *  End of header Panel
-     */
     public function drawEndHeaderPanel()
     {
-        echo '</div>';
+        echo '
+            </div>
+            ';
     }
 
     /**
@@ -121,14 +130,15 @@ trait PollWriterVoting
      *
      * @param $question
      */
-    public function drawHeader($question)
+    public function drawHeader($question, $descrtipion)
     {
         echo '
-        <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span class="glyphicon glyphicon-arrow-right"></span>'.$question.'
-                </h3>
-        </div>';
+        <div class="title text-uppercase"><h4>'
+        . $question .
+        '</h4></div>
+        <div class="desc">'
+        . $descrtipion .
+        '</div>';
     }
 
     /**
@@ -160,12 +170,11 @@ trait PollWriterVoting
     {
         echo '
             <li class="list-group-item">
-                <div class="radio">
-                    <label>
-                        <input value='.$id.' type="radio" name="options">
-                        '. $name .'
-                    </label>
-                </div>
+                <label class="control radio">
+                    <input value='.$id.' type="radio" name="options">
+                    <span class="control-indicator"></span>
+                    '. $name .'
+                </label>
             </li>
         ';
     }
