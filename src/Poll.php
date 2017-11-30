@@ -12,7 +12,7 @@ class Poll extends Model
 {
     use PollCreator, PollAccessor, PollManipulator, PollQueries;
 
-    protected $fillable = ['question'];
+    protected $fillable = ['question', 'description'];
 
     /**
      * A poll has many options related to

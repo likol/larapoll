@@ -20,7 +20,8 @@ class PollHandler {
     public static function createFromRequest($request)
     {
         $poll = new Poll([
-            'question' => $request['question']
+            'question' => $request['question'],
+            'description' => $request['description']
         ]);
         $poll->addOptions($request['options']);
 
