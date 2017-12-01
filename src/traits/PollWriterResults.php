@@ -73,7 +73,7 @@ trait PollWriterResults
             $percent = ($votes * 100) /($total);
         }
         echo "
-                <strong>{$result['option']->name}</strong><span class='pull-right'>{$percent}%</span>
+                <strong>{$result['option']->name}</strong><span class='pull-right'>{$votes} 票</span>
                 <progress class='progress' value='{$percent}' max='100'>
                     {$percent}%
                 </progress>";
