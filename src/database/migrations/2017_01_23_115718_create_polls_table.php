@@ -18,8 +18,8 @@ class CreatePollsTable extends Migration
             $table->longText('description')->default('');
             $table->integer('maxCheck')->default(1);
             $table->integer('isClosed')->default(0);
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
             $table->timestamps();
         });
     }
