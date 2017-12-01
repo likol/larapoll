@@ -47,7 +47,7 @@ class PollManagerController extends Controller
     {
         $poll = PollHandler::createFromRequest($request->all());
         return redirect(route('poll.index'))
-            ->with('success', 'Your poll has been addedd successfully');
+            ->with('success', '投票資料已成功新增。');
     }
 
     /**
@@ -73,7 +73,7 @@ class PollManagerController extends Controller
         PollHandler::modify($poll, $request->all());
 
         return redirect(route('poll.index'))
-            ->with('success', 'Your poll has been updated successfully');
+            ->with('success', '投票資料已成功更新。');
     }
 
     /**
@@ -87,7 +87,7 @@ class PollManagerController extends Controller
         $poll->remove();
 
         return redirect(route('poll.index'))
-            ->with('success', 'Your poll has been deleted successfully');
+            ->with('success', '投票資料已成功更新。');
     }
     public function create()
     {
@@ -104,7 +104,7 @@ class PollManagerController extends Controller
     {
         $poll->lock();
         return redirect(route('poll.index'))
-            ->with('success', 'Your poll has been locked successfully');
+            ->with('success', '投票已成功關閉。');
     }
 
     /**
@@ -117,6 +117,6 @@ class PollManagerController extends Controller
     {
         $poll->unLock();
         return redirect(route('poll.index'))
-            ->with('success', 'Your poll has been unlocked successfully');
+            ->with('success', '投票資料已成功開放。');
     }
 }
