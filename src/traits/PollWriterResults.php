@@ -4,18 +4,22 @@ namespace Inani\Larapoll\Traits;
 
 trait PollWriterResults
 {
+
+    protected $poll;
     /**
      * Draw the results of voting
      *
      * @param $poll
      */
+
     public function drawResult($poll)
     {
-        $total = $poll->votes->count();
-        $results = $poll->results()->grab();
+        $this->poll = $poll;
+        $total = $this->poll->votes->count() + $this->poll->options->sum('votes');
+        $results = $this->poll->results()->grab();
 
         $this->drawBoxStart();
-        $this->drawResultHeader($poll->question);
+        $this->drawResultHeader();
         $this->drawControlsStart();
         foreach($results as $result){
             $this->drawResultOption($result, $total);
@@ -30,9 +34,9 @@ trait PollWriterResults
      *
      * @param $question
      */
-    public function drawResultHeader($question)
+    public function drawResultHeader()
     {
-        echo "<h5>投票結果: {$question}</h5>";
+        echo "<h5>投票結果: {$this->poll->question}</h5>";
     }
 
     public function drawControlsStart()
@@ -49,12 +53,13 @@ trait PollWriterResults
     {
         echo '
         <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
         <div class="featured-item career-box">';
     }
 
     public function drawBoxEnd()
     {
+        echo "<span class='v-date'>投票期間: {$this->poll->start_at->format('Y-m-d H:i')} ~ {$this->poll->end_at->format('Y-m-d H:i')}</span>";
         echo '</div></div></div>';
     }
 

@@ -35,10 +35,7 @@ trait Votable
      */
     public function countVotes()
     {
-        if($this->isPollClosed()){
-            return $this->votes;
-        }
-        return Vote::where('option_id', $this->getKey())->count();
+        return Vote::where('option_id', $this->getKey())->count() + $this->votes;
     }
 
     /**

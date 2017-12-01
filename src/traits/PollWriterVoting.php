@@ -93,7 +93,7 @@ trait PollWriterVoting
     {
         echo '
         <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
         <form method="POST" action="'. route('poll.vote', $id).'" >
         ';
     }
