@@ -73,7 +73,7 @@ trait PollWriterVoting
     public function showFeedBack()
     {
         if(Session::has('errors')){
-            echo '<div class="alert alert-success">';
+            echo '<div class="alert alert-warning">';
             echo session('errors');
             echo '</div>';
         }

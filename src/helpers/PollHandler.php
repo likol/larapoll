@@ -54,9 +54,9 @@ class PollHandler {
     public static function getMessage(\Exception $e)
     {
         if($e instanceof OptionsInvalidNumberProvidedException || $e instanceof OptionsNotProvidedException)
-            return 'A poll should have two options at least';
+            return '每個投票至少需要兩個選項';
         if($e instanceof RemoveVotedOptionException)
-            return 'You can not remove an option that has a vote';
+            return '該選項已被投過，無法移除';
         if($e instanceof CheckedOptionsException)
             return 'You should edit the number of checkable options first.';
     }

@@ -45,19 +45,19 @@ trait Voter
             throw new VoteInClosedPollException();
 
         if($this->hasVoted($this->poll))
-            throw new \Exception("User can not vote again!");
+            throw new \Exception("您已經投過票了。");
 
         // if is Radio and voted for many options
         $countVotes = count($options);
         if($this->poll->isRadio() && $countVotes > 1)
-            throw new \InvalidArgumentException("The poll can not accept many votes option");
+            throw new \InvalidArgumentException("該投票只能單選。");
 
         if($this->poll->isCheckable() &&  $countVotes > $this->poll->maxCheck)
-            throw new \InvalidArgumentException("selected more options {$countVotes} than the limited {$this->poll->maxCheck}");
+            throw new \InvalidArgumentException("該投票最多可選 {$this->poll->maxCheck} 個項目，您選擇了 {$countVotes} 個");
 
         array_walk($options, function (&$val){
             if(! is_numeric($val))
-                throw new \InvalidArgumentException("Only id are accepted");
+                throw new \InvalidArgumentException("錯誤的參數。");
         });
 
         return !is_null($this->options()->sync($options, false)['attached']);
