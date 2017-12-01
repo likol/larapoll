@@ -1,6 +1,6 @@
 <?php
 
-namespace Inani\Larapoll\Http\Controllers;
+namespace App\Http\Controllers\Vote;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,6 +24,13 @@ class PollManagerController extends Controller
     {
         return view('larapoll::dashboard.home');
     }
+
+    public function view(Poll $poll)
+    {
+        $votes = $poll->votes()->groupBy('user_id')->get();
+
+        return view('larapoll::dashboard.detail', compact('votes'));
+    }
     /**
      * Show all the Polls in the database
      *
@@ -46,6 +53,7 @@ class PollManagerController extends Controller
     public function store(PollCreationRequest $request)
     {
         $poll = PollHandler::createFromRequest($request->all());
+
         return redirect(route('poll.index'))
             ->with('success', '投票資料已成功新增。');
     }
@@ -71,6 +79,8 @@ class PollManagerController extends Controller
     public function update(Poll $poll, Request $request)
     {
         PollHandler::modify($poll, $request->all());
+
+        PollHandler::modifyOptions($poll, $request);
 
         return redirect(route('poll.index'))
             ->with('success', '投票資料已成功更新。');

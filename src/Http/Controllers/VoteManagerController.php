@@ -1,6 +1,6 @@
 <?php
 
-namespace Inani\Larapoll\Http\Controllers;
+namespace App\Http\Controllers\Vote;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
