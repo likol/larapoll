@@ -23,7 +23,7 @@ class VoteManagerController extends Controller
                 ->poll($poll)
                 ->vote($request->get('options'));
             if($vote){
-                return back()->with('success', 'Vote Done');
+                return back()->with('success', '投票完成。');
             }
         }catch (\Exception $e){
             return back()->with('errors', $e->getMessage());

@@ -127,11 +127,6 @@ trait PollManipulator
      */
     public function lock()
     {
-        // Update the total of votes column
-        foreach($this->options()->get() as $option){
-            $option->updateTotalVotes();
-        }
-
         $this->isClosed = 1;
         return $this->save();
     }

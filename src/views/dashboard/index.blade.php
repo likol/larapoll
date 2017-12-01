@@ -35,10 +35,11 @@
                     <th>移除選項</th>
                     <th>移除投票</th>
                     <th>關閉/開放投票</th>
+                    <th>觀看投票會員</th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($polls as $poll)
+                @foreach($polls as $poll)
                     <tr>
                         <th scope="row">{{ $poll->id }}</th>
                         <td>{{ $poll->question }}</td>
@@ -86,6 +87,9 @@
                                 </button>
                             </form>
                         </td>
+                        <td><a class="btn btn-info btn-sm" href="{{ route('poll.view', $poll->id) }}">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a></td>
                     </tr>
                     @endforeach
                 </tbody>
