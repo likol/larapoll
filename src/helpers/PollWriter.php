@@ -19,8 +19,11 @@ class PollWriter {
     {
         $poll = Poll::findOrFail($poll_id);
         $this->showFeedBack();
-        if($voter->hasVoted($poll_id) || $poll->isLocked()){
-            return $this->drawResult($poll);
+
+        if (\Auth::user()) {
+            if($voter->hasVoted($poll_id) || $poll->isLocked()){
+                return $this->drawResult($poll);
+            }
         }
 
         if($poll->isRadio()){

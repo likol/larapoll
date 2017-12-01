@@ -103,7 +103,13 @@ trait PollWriterVoting
      */
     public function endForm()
     {
-        echo '<div class="col-md-12 text-center"><input type="submit" class="btn btn-small btn-dark-solid" value="投票" /></div></form></div></div></div>';
+        if (\Auth::user())
+        {
+            echo '<div class="col-md-12 text-center"><input type="submit" class="btn btn-small btn-dark-solid" value="投票" /></div></form></div></div></div>';
+        } else
+        {
+            echo '<div class="col-md-12 text-center"><a href="' . route('user::loginForm') . '" class="btn btn-small btn-dark-solid">登入投票</a></div></form></div></div></div>';
+        }
     }
 
     /**
