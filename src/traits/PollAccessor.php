@@ -2,6 +2,8 @@
 namespace Inani\Larapoll\Traits;
 
 
+use Carbon\Carbon;
+
 trait PollAccessor
 {
 
@@ -42,7 +44,10 @@ trait PollAccessor
      */
     public function isLocked()
     {
-        return $this->isClosed == 1;
+        $now = Carbon::now();
+        $start = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_at);
+        $end = Carbon::createFromFormat('Y-m-d H:i:s', $this->end_at);
+        return ($now->between($start, $end) == false || $this->isClosed == 1);
     }
 
     /**

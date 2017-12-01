@@ -2,11 +2,14 @@
 
 namespace Inani\Larapoll\Helpers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Inani\Larapoll\Exceptions\CheckedOptionsException;
 use Inani\Larapoll\Exceptions\OptionsInvalidNumberProvidedException;
 use Inani\Larapoll\Exceptions\OptionsNotProvidedException;
 use Inani\Larapoll\Exceptions\RemoveVotedOptionException;
 use Inani\Larapoll\Poll;
+use Illuminate\Http\Request;
 use Psy\Exception\Exception;
 
 class PollHandler {
@@ -21,7 +24,9 @@ class PollHandler {
     {
         $poll = new Poll([
             'question' => $request['question'],
-            'description' => $request['description']
+            'description' => $request['description'],
+            'start_at' => $request['start_at'],
+            'end_at' => $request['end_at']
         ]);
         $poll->addOptions($request['options']);
 
@@ -48,6 +53,39 @@ class PollHandler {
             }
         }else{
             $poll->unLock();
+        }
+
+        if (array_key_exists('question', $data)){
+            $poll->question = $data['question'];
+            $poll->save();
+        }
+
+        if (array_key_exists('description', $data)){
+            $poll->description = $data['description'];
+            $poll->save();
+        }
+
+        if (array_key_exists('start_at', $data)){
+            $poll->start_at = $data['start_at'];
+            $poll->save();
+        }
+
+        if (array_key_exists('end_at', $data)){
+            $poll->end_at = $data['end_at'];
+            $poll->save();
+        }
+    }
+
+    public static function modifyOptions(Poll $poll,Request $request)
+    {
+        $options = new Collection(['options' => $request->get('options'), 'votes' => $request->get('votes')]);
+        foreach ($options->get('options') as $key => $name)
+        {
+            $votes = $options->get('votes')[$key];
+            $poll->options()->where('id', $key)->update([
+                'name' => $name,
+                'votes' => $votes,
+            ]);
         }
     }
 

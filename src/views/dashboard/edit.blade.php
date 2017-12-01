@@ -14,32 +14,56 @@
                 {{ csrf_field() }}
                 <!-- Question Input -->
                 <div class="form-group">
-                    <label>{{ $poll->question }}</label>
+                    <label for="question">投票主題:</label>
+                    <input type="text" id="question" name="question" class="form-control" value="{{ $poll->question }}"/>
                 </div>
-                <ul class="options">
-                    @foreach($poll->options as $option)
-                        <li>{{ $option->name }}</li>
-                    @endforeach
-                </ul>
+
+                @foreach($poll->options as $key=>$option)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="option_{{ $option->id }}">選項 {{ $key+1 }}:</label>
+                                <input id="option_{{ $option->id }}" type="text" name="options[{{ $option->id }}]" class="form-control" value="{{ $option->name }}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="votes_{{ $option->id }}">選項 {{ $key+1 }} 投票基數:</label>
+                                <input id="votes_{{ $option->id }}" type="text" name="votes[{{ $option->id }}]" class="form-control" value="{{ $option->votes }}"/>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
                 <div class="form-group">
-                    <label>{{ $poll->description }}</label>
+                    <label for="description">投票描述:</label>
+                    <textarea name="description" class="form-control" rows="3">{{ $poll->description }}</textarea>
                 </div>
 
                 @php
                     $maxCheck = $poll->maxCheck;
                     $count_options = $poll->optionsNumber()
                 @endphp
-                <label for="count_check">最多選擇數量</label>
-                <select name="count_check" class="form-control">
-                    @for($i =1; $i<= $count_options; $i++)
-                        <option  {{ $i==$maxCheck? 'selected':'' }} >{{ $i }}</option>
-                    @endfor
-                </select>
+                <div class="form-group">
+                    <label for="count_check">最多選擇數量</label>
+                    <select name="count_check" class="form-control">
+                        @for($i =1; $i<= $count_options; $i++)
+                            <option  {{ $i==$maxCheck? 'selected':'' }} >{{ $i }}</option>
+                        @endfor
+                    </select>
+                </div>
 
-                <div class="radio">
-                    <label>
-                        <input type="checkbox" name="close" {{ $poll->isLocked()? 'checked':'' }}> 關閉投票
-                    </label>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="start_at">投票起始時間:</label>
+                            <input id="start_at" type="text" name="start_at" class="form-control flatpickr" value="{{ $poll->start_at }}" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="send_at">投票結束時間:</label>
+                            <input id="end_at" type="text" name="end_at" class="form-control flatpickr" value="{{ $poll->end_at }}" />
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Create Form Submit -->

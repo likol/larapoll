@@ -12,7 +12,9 @@ class Poll extends Model
 {
     use PollCreator, PollAccessor, PollManipulator, PollQueries;
 
-    protected $fillable = ['question', 'description'];
+    protected $fillable = ['question', 'description', 'start_at', 'end_at'];
+
+    public $dates = ['start_at', 'end_at', 'created_at', 'updated_at'];
 
     /**
      * A poll has many options related to

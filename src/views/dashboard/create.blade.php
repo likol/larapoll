@@ -36,8 +36,18 @@
                 <label for="description">投票描述:</label>
                 <textarea name="description" class="form-control" rows="3"></textarea>
             </div>
-
-
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="start_at">投票起始時間:</label>
+                        <input id="start_at" type="text" name="start_at" class="form-control flatpickr" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="send_at">投票結束時間:</label>
+                        <input id="end_at" type="text" name="end_at" class="form-control flatpickr" />
+                    </div>
+                </div>
+            </div>
 
             <!-- Create Form Submit -->
             <div class="form-group">
